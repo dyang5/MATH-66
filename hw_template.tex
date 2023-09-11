@@ -3,9 +3,16 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
 \usepackage[margin=1in]{geometry}
 
 \newcommand{\N}{\mathbb{N}}
+
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
+
+\setlength\parindent{0pt}
 
 \newtheorem*{observation}{Observation}
 \newtheorem*{theorem}{Theorem}
@@ -20,9 +27,9 @@
 
 	\hrule
 	\begin{center}
-        \textbf{MATH103: Complex Analysis}\hfill \textbf{Fall 2023}\newline
+        \textbf{MATH66: Numerical and Stochastic Methods}\hfill \textbf{Fall 2023}\newline
 
-		{\Large HW X}
+		{\Large Homework X}
 
 		David Yang
 	\end{center}
