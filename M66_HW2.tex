@@ -165,4 +165,65 @@ Note that these forms avoid the rounding errors discussed above. Thus, in this i
 
 \[ \boxed{ x_1 = -\frac{b + \sqrt{b^2 + 4\cdot10^{-12}}}{2} \text { and  } x_2 = \frac{2\cdot 10^{-12}}{(b + \sqrt{b^2 + 4\cdot10^{-12}})} } \]
 \end{solution}
+
+\newpage
+
+\textit{Problems from Numerical Analysis (Sauer), Chapter 5: Numerical Differentiation and Integration.} \\
+
+\underline{Section 5.1 (Numerical Differentiation), Problem 8} \\
+
+\textbf{Prove the second-order formula for the first derivative} 
+\[ f'(x) = \frac{-f(x+2h) + 4f(x+h) - 3f(x)}{2h} + O(h^2). \]
+
+\begin{solution}
+By Taylor's Theorem, if $f$ is three times continuously differentiable, then
+\[ f(x+h) = f(x) + hf'(x) + \frac{h^2}{2} f''(x) + O(h^3),\]
+and 
+\vspace{-0.5cm}
+\begin{align*}
+    f(x+2h) &= f(x) + (2h)f'(x) + \frac{(2h)^2}{2} f''(x) + O(h^3) \\
+    &= f(x) + 2hf'(x) + 2h^2 f''(x) + O(h^3).
+\end{align*}
+
+Multiplying the $f(x+h)$ by $4$ and subtracting it from $f(x+2h)$, we get
+\[ f(x+2h) - 4f(x+h) = -3f(x) - 2hf'(x) + O(h^3). \]
+
+Rearranging our terms, we get that 
+\[ 2hf'(x) = 4f(x+h) - 3f(x) - f(x+2h) + O(h^3). \]
+
+Finally, dividing both sides by $2h$ and solving for $f'(x)$, we get the desired second-order formula for the first derivative:
+\[ \boxed{f'(x) = \frac{-f(x+2h) + 4f(x+h) - 3f(x)}{2h} + O(h^2)}. \]
+    
+\end{solution}
+
+\newpage
+
+\underline{Section 5.1 (Numerical Differentiation), Problem 15} \\
+
+\textbf{Develop a first-order method for approximating $f''(x)$ that uses the data $f(x-h), f(x),$ and $f(x+3h)$ only.}
+\begin{solution}
+    By Taylor's Theorem, if $f$ is three times continuously differentiable, then
+    \[ f(x-h) = f(x) - hf'(x) + \frac{h^2}{2} f''(x) - \frac{h^3}{6} f'''(x) + \frac{h^4}{24}f''''(c_1),\]
+    and 
+    \vspace{-0.5cm}
+    \begin{align*}
+        f(x+3h) &= f(x) + (3h)f'(x) + \frac{(3h)^2}{2} f''(x) + \frac{(3h)^3}{6} f'''(x) + \frac{(3h)^4}{24} f''''(c_2) \\
+        &= f(x) + 3hf'(x) + \frac{9h^2}{2} f''(x) + \frac{27h^3}{6} f'''(x) + \frac{27h^4}{8} f''''(c_2).
+    \end{align*}
+
+where the $c_1, c_2$ terms lie in the range $[x-h, x+3h].$ 
+Multiplying $f(x-h)$ by three and adding it to the expression for $f(x+3h)$, we eliminate the $f'(x)$ term and get
+\[ f(x+3h) + 3f(x-h) = 4f(x) + 6h^2f''(x) + 4h^3f'''(x) + \frac{7}{2} h^4 f''''(c)\]
+
+where $c \in [x-h, x+3h]$ combines the two previous $c_1$ and $c_2$ terms. \\
+
+Moving the $f''(x)$ term to one side and the other terms to the other, we find that
+\[ -6h^2f''(x) = 4f(x) - 3f(x-h) - f(x+3h) + 4h^3f'''(x) + \frac{7}{2}h^4 f''''(c).\]
+
+Dividing both sides by $-6h^2$ and simplifying, we get
+
+\[ \boxed{f''(x) = \frac{f(x+3h) + 3f(x-h) - 4f(x)}{6h^2} - \frac{2}{3}h f'''(x) - \frac{7}{12}h^2 f''''(c)}. \]
+\end{solution}
+
+
 \end{document}
