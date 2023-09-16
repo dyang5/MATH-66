@@ -66,7 +66,7 @@ Thus, the number $5+2^{-k}$ will be represented exactly in double precision floa
     Note that \[2^{-51} = 0.[00000000000000000000000000000000000000000000000000010],\] \[2^{-53} = 0.[00000000000000000000000000000000000000000000000000000]1,\] 
     and so \[ 2^{-51} + 2^{-53} = 0.[00000000000000000000000000000000000000000000000000010]1.\]
 
-    By the Rounding to the Nearest Rule, since the $53^{\text{rd}}$ bit is $1$, the $52^{\text{nd}}$ bit is $0$, so $2^{-51} + 2^{-53}$ rounds down to
+    By the Rounding to the Nearest Rule, since the $53^{\text{rd}}$ bit is $1$ and the $52^{\text{nd}}$ bit is $0$, then $2^{-51} + 2^{-53}$ rounds down to
     \[0.[00000000000000000000000000000000000000000000000000010] = 2^{-51}.\]
 
     Adding $1$ yields $1.[00000000000000000000000000000000000000000000000000010]$ and subtracting $1$ afterwards yields
@@ -87,7 +87,7 @@ Thus, the number $5+2^{-k}$ will be represented exactly in double precision floa
         \[ 2^{-54} = 0.[00000000000000000000000000000000000000000000000000000]01.\]
         This means that \[ 2^{-51} + 2^{-52} + 2^{-54}= 0.[00000000000000000000000000000000000000000000000000011]01.\]
     
-        By the Rounding to the Nearest Rule, since the $53^{\text{rd}}$ bit is $0$, so $2^{-51} + 2^{-52} + 2^{-54}$ rounds down to
+        By the Rounding to the Nearest Rule, since the $53^{\text{rd}}$ bit is $0$, $2^{-51} + 2^{-52} + 2^{-54}$ rounds down to
         \[0.[00000000000000000000000000000000000000000000000000011] = 2^{-51} + 2^{-52}.\]
     
         Adding $1$ yields $1.[00000000000000000000000000000000000000000000000000011]$ and subtracting $1$ afterwards yields
@@ -118,12 +118,11 @@ This follows since $1 + \frac{\epsilon_{\mathrm{mach}}}{2}$ rounds down to $1$, 
 
 Subtraction of nearly equal numbers occurs when \[1 \approx \sec(x) = \frac{1}{\cos(x)}\] 
 
-which occurs when $\cos(x)$ is very close to $1$. Values of $x$ at which this occur include $x$ which are close to $2\pi n$ for integer $n$. \\
+which occurs when $\cos(x)$ is very close to $1$. Values of $x$ at which this occur include $x$ close to $2\pi n$ for integer $n$. \\
 
-We want to find an alternate form of the expression \[ \frac{1 - \sec{x}}{\tan^2{x}}. \]
+To find an alternate form of the expression \[ \frac{1 - \sec{x}}{\tan^2{x}}, \]
 
-We can multiply both the numerator and denominator of the fraction by $1+\sec{x}$, which gives
-
+we can multiply both the numerator and denominator of the fraction by $1+\sec{x}$, which gives
 \begin{align*}
     \frac{1 - \sec{x}}{\tan^2{x}} &= \frac{1-\sec{x}}{\tan^2{x}} \cdot \frac{1+\sec{x}}{1+\sec{x}} \\
     &= \frac{1 - \sec^2(x)}{\tan^2(x) (1 + \sec{x})}
@@ -153,7 +152,7 @@ $x^2+bx - 10^{-12} =0$, where $b$ is a number greater than $100$.}
 \begin{solution}
 The quadratic formula tells us that the roots of equation \[ x = \frac{-b \pm \sqrt{b^2 -4ac}}{2a} = \frac{-b \pm \sqrt{b^2 + 4\cdot 10^{-12}}}{2}.\]
 
-Since $\sqrt{b^2 + 4 \cdot 10^{-12}} \approx b$ as $b \gg 10^{-12}$, the root \[ x = \frac{-b + \sqrt{b^2 + 4\cdot10^{-12}}}{2} \]
+Since $\sqrt{b^2 + 4 \cdot 10^{-12}} \approx b$ as $b = 100 \gg 10^{-12}$, the root \[ x = \frac{-b + \sqrt{b^2 + 4\cdot10^{-12}}}{2} \]
 
 may lead to rounding error caused by the subtraction of nearly equal numbers. \\
 
@@ -215,7 +214,7 @@ where the $c_1, c_2$ terms lie in the range $[x-h, x+3h].$
 Multiplying $f(x-h)$ by three and adding it to the expression for $f(x+3h)$, we eliminate the $f'(x)$ term and get
 \[ f(x+3h) + 3f(x-h) = 4f(x) + 6h^2f''(x) + 4h^3f'''(x) + \frac{7}{2} h^4 f''''(c)\]
 
-where $c \in [x-h, x+3h]$ combines the two previous $c_1$ and $c_2$ terms. \\
+where the $f''''(c)$ term with $c \in [x-h, x+3h]$ combines the two previous $f''''(c_1)$ and $f''''(c_2)$ terms. \\
 
 Moving the $f''(x)$ term to one side and the other terms to the other, we find that
 \[ -6h^2f''(x) = 4f(x) - 3f(x-h) - f(x+3h) + 4h^3f'''(x) + \frac{7}{2}h^4 f''''(c).\]
