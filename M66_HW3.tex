@@ -42,11 +42,82 @@
 
 \underline{Section 3.1 (Data and Interpolating Functions), Problem 5} \\
 
+\begin{enumerate}[a)]
+    \item \textbf{Find a polynomial $P(x)$ of degree $3$ or less whose graph passes through the four data points $(-2, 8), (0, 4), (1, 2), (3, -2)$.}
+    
+    \begin{solution}
+    We can construct a polynomial using Lagrange interpolation:
+    \begin{align*}
+         P(x) &= 8\frac{(x-0)(x-1)(x-3)}{(-2-0)(-2-1)(-2-3)} + 4\frac{(x-(-2))(x-1)(x-3)}{(0-(-2))(0-1)(0-3)} \\
+         &+  2\frac{(x-(-2))(x-0)(x-3)}{(1-(-2))(1-0)(1-3)}  + (-2)\frac{(x-(-2))(x-0)(x-1)}{(3-(-2))(3-0)(3-1)}.\end{align*}
+    
+    This simplifies to $\boxed{P(x) = 4-2x}$.
+    \end{solution}
+    
+    \item \textbf{Describe any other polynomials of degree 4 or less which pass through the four points in part (a).}
+  
+    \begin{solution}
+        By the Lagrange Interpolation theorem, $P(x) = 4-2x$ is the unique polynomial of degree less than $4$, but any other polynomial that passes through the given point will be of the form
+        \[ \boxed{\tilde{P}(x) = 4-2x + c(x+2)x(x-1)(x-3)} \]
+    
+        for any constant $c$; this polynomial is constructed from the fact that the polynomial found in (a) interpolates for the given data points.
+    \end{solution}
+\end{enumerate}
+
+\newpage
+
 \underline{Section 3.1 (Data and Interpolating Functions), Problem 8} \\
+
+\textbf{Let $P(x)$ be the degree $9$ polynomial that takes the value $112$ at $x = 1$, takes the value $2$ at $x = 10$, and equals zero for $x = 2, \dots,9$. Calculate $P(0)$.}
+
+\begin{solution}
+    We can construct such a polynomial using Lagrange interpolation:
+    \[ P(x) = 112 \frac{(x-2)\dots(x-10)}{(1-2)\dots(1-10)} + 2\frac{(x-1)\dots(x-9)}{(10-1)\dots(10-9)} + \text{[0 terms from } P(2) = \dots = P(9) = 0.\text{]} \]
+
+    Simplifying, we find that \[P(x) = -112 \frac{(x-2)\dots(x-10)}{9!} + 2\frac{(x-1)\dots(x-9)}{9!}.\]
+
+    Thus, plugging in $x=0$, we find that \[ P(0) = -112\frac{-(10)!}{9!} + 2\frac{-(9)!}{9!} = 1120 - 2 = \boxed{1118}.\]
+
+
+\end{solution}
+
+\vspace{1cm}
 
 \underline{Section 3.1 (Data and Interpolating Functions), Problem 12} \\
 
+\textbf{Can a degree $3$ polynomial intersect a degree $4$ polynomial in exactly five points? Explain.}
+
+\begin{solution}
+No. By Lagrange's Interpolation theorem, there is exactly one degree $4$ or less polynomial passing through five given points; thus, there cannot be a degree $3$ polynomial and a degree $4$ polynomial passing through the same five points.    
+\end{solution}
+
+\vspace{1cm}
+
 \underline{Section 3.1 (Data and Interpolating Functions), Problem 17} \\
+
+\textbf{The estimated mean atmospheric concentration of carbon dioxide in earth's atmosphere is given in the table that follows, 
+in parts per million by volume. Find the degree $3$ interpolating polynomial of the data and use it to estimate the CO$_2$ concentration in
+(a) $1950$ and (b) $2050$. (The actual concentration in $1950$ was $310$ ppm).} 
+
+\begin{solution}
+We find the degree $3$ interpolating polynomial using Lagrange interpolation:
+\begin{align*} P(x) &= 280 \frac{(x-1850)(x-1900)(x-2000)}{(1800-1850)(1800-1900)(1800-2000)} + 283 \frac{(x-1800)(x-1900)(x-2000)}{(1850-1800)(1850-1900)(1850-2000)} \\
+&+ 291 \frac{(x-1800)(x-1850)(x-2000)}{(1900-1800)(1900-1850)(1900-2000)} + 370 \frac{(x-1800)(x-1850)(x-1900)}{(2000-1800)(2000-1850)(2000-1900)}\end{align*}
+
+Plugging in $x=1950$, we find that \begin{align*}
+    P(1950) &= 280\frac{(100)(50)(-50)}{(-50) (-100) (-200)} + 283 \frac{150(50)(-50)}{(50)(-50)(-150)} \\
+    &+ 291\frac{(150)(100)(-50)}{(100)(50)(-100)} + 370\frac{(150)(100)(50)}{(200)(150)(100)} \\
+    &= \boxed{316 \text{ ppm}}
+\end{align*}
+
+and \begin{align*}
+    P(2050) &= 280\frac{(200)(150)(50)}{(-50) (-100) (-200)} + 283 \frac{250(150)(50)}{(50)(-50)(-150)} \\
+    &+ 291\frac{(250)(200)(50)}{(100)(50)(-100)} + 370\frac{(250)(200)(150)}{(200)(150)(100)} \\
+    &= \boxed{465 \text{ ppm}}.
+\end{align*}
+\end{solution}
+
+\newpage
 
 \underline{Section 3.2 (Interpolation Error), Problem 2} \\
 
