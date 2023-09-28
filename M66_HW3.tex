@@ -121,12 +121,118 @@ and \begin{align*}
 
 \underline{Section 3.2 (Interpolation Error), Problem 2} \\
 
+\begin{enumerate}[a)]
+    \item \textbf{Given the data points $(1, 0), (2, \ln 2), (4, \ln 4)$, find the degree $2$ interpolating polynomial.}
+    
+    \begin{solution}
+        The degree $2$ interpolating polynomial, from Lagrange's interpolation formula, is
+    \begin{align*} P(x) &= 0 + \ln 2\frac{(x-1)(x-4)}{(2-1)(2-4)} + \ln 4 \frac{(x-1)(x-2)}{(4-1)(4-2)} \end{align*}
+    
+    Simplifying, we get \[\boxed{P(x) = -\ln 2\frac{(x-1)(x-4)}{2} + \ln 4 \frac{(x-1)(x-2)}{6}}. \]
+    \end{solution}
+
+    \item \textbf{Use the result of (a) to approximate $\ln 3$.} 
+    \begin{solution}
+        Plugging in $x = 3$, we get that \[P(3) =  -\ln 2\frac{(3-1)(3-4)}{2} + \ln 4 \frac{(3-1)(3-2)}{6} \approx \boxed{1.155}.\]
+    \end{solution}
+
+    \item \textbf{Use Theorem 3.3 to give an error bound for the approximation in part (b).}
+    
+    \begin{solution}
+    By Theorem $3.3$ (the Error Bounding Theorem), we know that the interpolation error for second degree approximation $P(x)$ is 
+    \[ f(x) - P(x) = \frac{(x-1)(x-2)(x-4)}{3!} f^{'''}(c)\]
+
+    where $f(x) = \ln(x)$, and so $f'''(x) = \frac{2}{x^3}.$ Since $1 \leq c \leq 4$, we know $f'''(c) = \frac{2}{c^3} \leq 2$, and so an upper bound of our error at $x = 3$ is
+    \begin{align*} |f(3) - P(3)| \leq \left|\frac{(3-1)(3-2)(3-4)}{3!} \cdot 2\right| = \boxed{\frac{1}{3}}. \end{align*}
+    \end{solution}
+
+    \item \textbf{Compare the actual error to your error bound.}
+    
+    \begin{solution}
+    The actual error of our approximation for $\ln(3)$ is \[|\ln(3) - P(3)| \approx |\ln(3) - 1.155| \approx \boxed{0.0564},\] which is smaller than our error bound found in part (c).
+    \end{solution}
+\end{enumerate}
+
+\newpage
+
 \underline{Section 3.2 (Interpolation Error), Problem 6} \\
 
+\textbf{Assume that the polynomial $P_5(x)$ interpolates a function $f(x)$ at the six data points $(x_i , f(x_i))$ with $x$-coordinates
+$x_1 = 0, x_2 = 0.2, x_3 = 0.4, x_4 = 0.6, x_5 = 0.8, x_6 = 1.$
+Assume that the interpolation error at $x = 0.3$ is $|f (0.3) - P_5(0.3)| = 0.01$. 
+Estimate the new interpolation error $|f (0.3) - P_7(0.3)|$ that would result if two additional interpolation points $(x_6, y_6) = (0.1, f (0.1))$ and $(x_7, y_7) = (0.5, f (0.5))$ are added. What assumptions have you made to produce this estimate?}
 
+\begin{solution}
+We know by the Error Bounding Theorem that the interpolation error for the approximation $P_5(x)$ is approximately
+\[ |f(x) - P_5(x)| = \left|\frac{x(x-0.2)(x-0.4)(x-0.6)(x-0.8)(x-1)}{6!}f^{(6)}(c_1)\right| \]
+
+where $0 \leq c_1 \leq 1$, since we are given $6$ data points. Adding two interpolation points $(x_6, y_6) = (0.1, f(0.1))$ and $(x_7, y_7) = (0.5, f(0.5))$ gives us a slightly different error bound; we have
+\[ |f(x) - P_7(x)| = \left|\frac{x(x-0.1)(x-0.2)(x-0.4)(x-0.5)(x-0.6)(x-0.8)(x-1)}{8!}f^{(8)}(c_2)\right|\]
+
+where again $0 \leq c_2 \leq 1$. Observe that we can estimate the error of $P_7(x)$ using the relative ratios between these two error bounds:
+\[ \frac{|f(x) - P_7(x)|}{|f(x) - P_5(x)|} = \left| \frac{(x-0.1)(x-0.5)}{7\cdot8}\right| \left|\frac{f^{(8)}(c_2)}{f^{(6)}(c_{1})}\right|\]
+
+Assuming that we have no extra information about $f^{(6)}(c_1)$ and $f^{(8)}(c_2)$, we estimate the relative ratio of their errors to be
+\[ \frac{|f(x) - P_7(x)|}{|f(x) - P_5(x)|} \approx \left| \frac{(x-0.1)(x-0.5)}{7\cdot8}\right|,\]
+
+or equivalently,
+\[ |f(x) - P_7(x)| \approx |f(x) - P_5(x)|\left| \frac{(x-0.1)(x-0.5)}{7\cdot8}\right|,\]
+
+Thus, plugging in $x = 0.3$ and using the fact that $|f(0.3) - P_5(0.3)| = 0.01$, we get that
+\[ |f(x) - P_7(x)| \approx 0.01 \left| \frac{(0.3-0.1)(0.3-0.5)}{56}\right| \approx \boxed{7 \times 10^{-6}}.\]
+
+To reiterate the assumptions we used to produce this estimate, we assumed that we have no information about the bounds of the derivatives of $f$.
+\end{solution}
+
+\newpage
+
+\textit{Problems from Numerical Analysis (Sauer), Chapter 5.} \\ 
+
+\underline{Section 5.2 (Newton-Cotes Formulas for Numerical Integration), Problem 4(a)} \\
+
+\textbf{Apply the composite Simpson's Rule with $m = 1, 2,$ and $4$ panels to the integral $\int_0^1 xe^x \, dx$ and report the errors. Repeat with composite trapezoid.} \\
+
+\begin{solution}
+For this problem, I adapted the DeepNote notebook code we did for N2: Quadrature. \\
+
+For the composite Simpson's rule with $1, 2$, and $4$ panels, the reported errors were approximately
+\[ \boxed{0.0026, 1.69\times 10^{-4}, 1.065\times 10^{-5}.}\]
+
+For the composite trapezoid rule with $1$, $2$, and $4$ panels, the reported errors were approximately
+\[ \boxed{0.359, 0.09175, 0.023}.\]
+
+As expected, we see that as we add more panels, the errors get smaller, and the composite Simpson's Rule error is also smaller than the composite trapezoid rule for the same panel number; this matches our expectations since composite Simpson's is a higher order approximation.
+\end{solution}
+
+\newpage
+
+\underline{Section 5.2 (Newton-Cotes Formulas for Numerical Integration), Problem 12} \\
+
+\textbf{Find $c_1, c_2, c_3$ such that the rule \[ \int_0^1 f(x) \, dx \approx c_1f(0) + c_2f(0.5) + c_3f(1)\] has
+degree of precision greater than one. (Hint: Substitute $f(x) = 1, x,$ and $x^2$. Do you recognize the method that results?)} \\
+
+\begin{solution}
+We will first plug in $f(x) = 1$: 
+\[ \int_0^1 1 \, dx = 1 = c_1 + c_2 + c_3.\]
+
+Next, we plug in $f(x) = x$:
+\begin{align*} \int_0^1 x \, dx = \left[ \frac{x^2}{2} \right]_0^1 &= \frac{1}{2} \end{align*}
+
+and \[ c_1f(0) + c_2f(0.5) + c_3f(1) = 0.5c_2 + c_3 = \frac{1}{2}.\]
+
+Finally, for $f(x) = x^2$, we have
+\begin{align*} \int_0^1 x^2 \, dx = \left[ \frac{x^3}{3} \right]_0^1 &= \frac{1}{3} \end{align*}
+
+and \[ c_2f(0.5) + c_3f(1) = 0.25c_2 + c_3 = \frac{1}{3}.\]
+
+The rule has degree of precision greater than one when these equations are satisfied; 
+using the final two equations, we find that 
+\[c_2 = \frac{\frac{1}{2} - \frac{1}{3}}{\frac{1}{4}} = \frac{2}{3}.\]
+
+This tells us that $c_3 = \frac{1}{6}$, and from the first equation, we get that \[c_1 = 1-c_2 -c_3 = \frac{1}{6}.\]
+
+Thus, we get the rule \[ \int_0^1 f(x) \, dx \approx \frac{1}{6}f(0) + \frac{2}{3}f(0.5) + \frac{1}{6}f(1)\] or equivalently,
+\[ \boxed{\int_0^1 f(x) \, dx \approx \frac{f(0) + 4f(0.5) + f(1)}{6}}\]
+which is simply Simpson's Rule.
+\end{solution}
 \end{document}
-
-Chapter 5.2: Newton Cotes quadrature
-#4(a)
-repeat #4(a) using composite trapezoid
-#12*
