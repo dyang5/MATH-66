@@ -82,10 +82,10 @@
         \item \textbf{Apply a relevant theorem discussed in class to make sense of your answers in (a) and (b). Is the Forward Euler method invalid for this problem? Why or why not?}
         \begin{solution}
         We want to make use of our local existence and uniqueness theorem for first order IVPs. However, since $f$ is not Lipschitz continuous in any interval containing $y=0$, we cannot say that there is a unique solution to some interval about $y=0$, explaining
-        the two distinct solutions in (a) and (b). 
+        the two distinct solutions in (a) and (b). \\
 
-        \textcolor{red}{Euler's Method}
-        \end{solution}
+        The Forward Euler method is not invalid for this problem; it provides the trivial solution which shows that the ODE need not have a unique solution when Lipschitz continuity is not satisfied.
+    \end{solution}
     \end{enumerate}
 
     \newpage
@@ -95,14 +95,45 @@
 
     \begin{enumerate}[a)]
         \item \textbf{Approximate the value of $y(0.1)$ by calculating one-step of each numerical method using $h = 0.1$.}
-        \item \textbf{Approximate the value of $y(0.1)$ by calculating one-step of each numerical method using $h = 0.01$.}
+        \item \textbf{Approximate the value of $y(0.01)$ by calculating one-step of each numerical method using $h = 0.01$.}
         \item \textbf{Calculate the one-step error (local truncation error) in each approximatuion and report the order of the method.}
     \end{enumerate}
 
+    We will first solve for the exact solution using separation of variables. Dividing both sides by $y$, we have that
+    \[ \frac{1}{y} y' = 2(t+1).\]
+
+    Integrating both sides, we find that 
+    \[ \ln(y) = t^2 + 2t + C.\]
+
+    Since $y(0) = 1$, we know that $\ln(1) = 0^2 + 2(0) + C$, so $C=0$. Thus, our solution is 
+    \[ \boxed{y = e^{t^2 + 2t}} \]
+
+    and we will use this exact solution to measure the errors for each of the following methods:
+
+
     \item \textbf{Forward Euler method}
+    
+    \begin{enumerate}[a)]
+        \item The Forward Euler method approximates $y(0.1)$ as \[ y(0.1) = y(0) + 0.1(f(0, 1)) = 1 + 0.1(2(0+1)1) = \boxed{1.2} \]
+        \item The Forward Euler method approximates $y(0.01)$ as \[ y(0.01) = y(0) + 0.01(f(0, 1)) = 1 + 0.01(2(0+1)1) = \boxed{1.02} \]
+        \item The local truncation error in each approximation are $\left|1.2 - e^{0.1^2 + 2(0.1)}\right|$ and $\left|1.02 - e^{0.01^2 + 2(0.01)} \right|.$ 
+         Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.2 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.02 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{2}. \]
+    \end{enumerate}
     \item \textbf{Backward Euler method}
     \item \textbf{Trapezoid method}
     \item \textbf{Explicit trapezoid method (Heun's Method)}
+    
+    \begin{enumerate}[a)]
+        \item Heun's method approximates $y(0.1)$ as \begin{align*} y(0.1) &= y(0) + 0.1\cdot\frac{1}{2}(f(0, 1) + f(0.1, 1 + 0.1f(0, 1))) \end{align*}
+        Plugging in $f(0, 1) = 2(0+1)1 = 2$, we get
+        \begin{align*} y(0.1) &= 1 + 0.05(2 + 2(0.1 + 1)(1 + 0.1(2))) = \boxed{1.232}\end{align*}
+        \item Heun's method approximates $y(0.01)$ as \begin{align*} y(0.01) &= y(0) + 0.01\cdot\frac{1}{2}(f(0, 1) + f(0.01, 1 + 0.01f(0, 1))) \end{align*}
+        Plugging in $f(0, 1) = 2$ and $f(0.01, 1 + 0.01f(0,1)) = f(0.01,  1.02) = 2.0604$, we get
+        \begin{align*} y(0.01) &= 1 + 0.005(2 + 2.0604) = \boxed{1.020302}.  \end{align*}
+        \item The local truncation error in each approximation are $\left|1.232 - e^{0.1^2 + 2(0.1)}\right|$ and $\left|1.020302 - e^{0.01^2 + 2(0.01)} \right|.$ 
+         Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.232 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.020302 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{3}. \]
+    \end{enumerate}
+
     \item \textbf{Taylor-2 method}
     
     \newpage
@@ -110,33 +141,63 @@
     \item \textbf{Show the local truncation error of the Backward Euler method is $h^2$.}
     
     \begin{solution}
-
-    We will follow the procedure in Example 6.7 in \textit{Numerical Analysis (Sauer)}.
-    Consider the one-step initial value problem
-    \[\begin{cases}
-        y' = f(t, y) \\
-        y(t_i)=w_i \\
-        t \in [t_i,t_{i+1}]
-    \end{cases}\]
-
-
     Assuming that $y''$ is continuous, the exact solution at $t_{i+1} = t_i + h$, by Taylor's Theorem, is
-    \[ y(t_{i+1}) = y(t_i + h) = y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(c) \]
+    \[ y(t_{i+1}) = y(t_i + h) = y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3). \]
 
-    Equivalently, since $y(t_i) = w_i$ and $y'(t_i) = f(t_i, w_i)$ by definition, we can rewrite this as
-    \[ y(t_{i+1}) =  w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c).\]
+    The Backward Euler method estimates \[y_{i+1} = y_i + h(f(t_{i+1}, y_{i+1})).\]
 
-    On the other hand, the Backwards Euler method tells us that \[w_{i+1}= w_i + hf(t_{i+1}, w_{i+1}).\]
-
-    The local truncation error is the difference between these two expressions:
-    \begin{align*} e_{i+1} &= |w_{i+1} - y(t_{i+1})|  \\
-        &= \left|\left( w_i + hf(t_{i+1}, w_{i+1}) \right) - \left( w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c)\right) \right| \\
-        &= \left| h(f(t_{i+1}, w_{i+1}) - f(t_i, w_i)) + \frac{h^2}{2}y''(c)\right|
+    Using a multivariate Taylor expansion about $t_i, y_i$, we can write $f(t_{i+1}, y_{i+1})$ as
+    \begin{align*} f(t_{i+1}, y_{i+1}) &= f(t_i + h, y_i) \\
+        &= f(t_i, y_i) + h(f_t(t_i, y_i)) + (y_{i+1} - y_i)f_y(t_i, y_i).
     \end{align*}
-        
-    Note that 
-    \[ f(t_{i+1}, w_{i+1}) = f(t_i + h, w_i ) = \]
+
+    From our previous Taylor expansion, we know that $y_{i+1} - y_{i} = hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3)$ and so substituting this in gives us
+    \begin{align*} f(t_{i+1}, y_{i+1}) &= f(t_i, y_i) + h(f_t(t_i, y_i)) + (y_{i+1} - y_i)f_y(t_i, y_i) \\
+    &= f(t_i, y_i) + hf_t(t_i, y_i) + \left(hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3)\right)f_y(t_i, y_i) \\
+    &= y'(t_i) + hf_t(t_i, y_i) + \left(hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3)\right)f_y(t_i, y_i).
+    \end{align*}
+
+    Thus, the local truncation error of the Backward Euler method is
+    \[ \ell_{i+1} = y(t_{i+1}) - [y(t_i) + hf(t_{i+1}, y_{i+1})] \]
+    \[ = \left( y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3) \right) - \left[ y(t_i) + h\left(y'(t_i) + hf_t(t_i, y_i) + O(h) f_y(t_i, y_i)\right) \right] \]
+    \[ = O(h^2) \]
+    and so our local truncation error has order $h^2$.
     \end{solution}
+
+
+    % \begin{solution}
+    % We will follow the procedure in Example 6.7 in \textit{Numerical Analysis (Sauer)}.
+    % Consider the one-step initial value problem
+    % \[\begin{cases}
+    %     y' = f(t, y) \\
+    %     y(t_i)=w_i \\
+    %     t \in [t_i,t_{i+1}]
+    % \end{cases}\]
+
+
+    % Assuming that $y''$ is continuous, the exact solution at $t_{i+1} = t_i + h$, by Taylor's Theorem, is
+    % \[ y(t_{i+1}) = y(t_i + h) = y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3). \]
+
+    % Equivalently, since $y(t_i) = w_i$ and $y'(t_i) = f(t_i, w_i)$ by definition, we can rewrite this as
+    % \[ y(t_{i+1}) =  w_{i+1} = w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c).\]
+
+    % On the other hand, the Backwards Euler method tells us that \[w_{i+1}= w_i + hf(t_{i+1}, w_{i+1}).\]
+
+    % The local truncation error is the difference between these two expressions:
+    % \begin{align*} e_{i+1} &= |w_{i+1} - y(t_{i+1})|  \\
+    %     &= \left|\left( w_i + hf(t_{i+1}, w_{i+1}) \right) - \left( w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c)\right) \right| \\
+    %     &= \left| h(f(t_{i+1}, w_{i+1}) - f(t_i, w_i)) + \frac{h^2}{2}y''(c)\right|
+    % \end{align*}
+        
+    % Note that $f(t_{i+1}, w_{i+1}) = f(t_i + h, w_{i+1} )$. Using a multivariable Taylor expansion, we find that
+    % \begin{align*} f(t_{i+1}, w_{i+1}) &= f(t_i + h, w_i) \\
+    % &= f(t_i, w_i) + h(f_t(t_i, w_i)) + (w_{i+1} - w_i)f_y(t_i, w_i) \end{align*}
+
+    % From the Taylor expansion of $w_{i+1} = y(t_{i+1})$, we know that $w_{i+1} - w_i = hf(t_i, w_i) + O(h^2)$. 
+    % $w_{i+1} - w_i = hf(t_{i+1}, w_{i+1})$ and so substituting this 
+    % \end{solution}
+    \newpage
+
     \item \textbf{Show that the 4th order RK method $(\text{Eq } 6.50, \, \text{page } 330)$ has $h^5$ error when applied to the ODE $y'=ay.$}
 \end{enumerate}
 
