@@ -119,14 +119,37 @@
         \item The local truncation error in each approximation are $\left|1.2 - e^{0.1^2 + 2(0.1)}\right|$ and $\left|1.02 - e^{0.01^2 + 2(0.01)} \right|.$ 
          Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.2 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.02 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{2}. \]
     \end{enumerate}
+
+    \newpage
+
     \item \textbf{Backward Euler method}
+
+    \begin{enumerate}[a)]
+        \item The Backward Euler method approximates $y(0.1)$ as \[ y(0.1) = y(0) + 0.1(f(0.1, y(0.1))) = 1 + 0.1(2(0.1+1)y(0.1)). \]
+        Solving for $y(0.1)$, we get that \[ y(0.1) = \frac{1}{1 - 0.1(2(1+0.1))} \approx \boxed{1.282}\]
+        \item The Backward Euler method approximates $y(0.01)$ as \[ y(0.01) = y(0) + 0.01(f(0.01, y(0.01))) = 1 + 0.01(2(0.01+1)y(0.01)). \]
+        Solving for $y(0.01)$, we get that \[ y(0.01) = \frac{1}{1 - 0.01(2(1+0.01))} \approx \boxed{1.0206} \]
+         Thus, the order of the method is \[ \log_{10} \left(\frac{\left|1.282 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.0206 - e^{0.01^2 + 2(0.01)}\right|}  \right) \approx \boxed{2}. \]
+    \end{enumerate}
+
     \item \textbf{Trapezoid method}
+  
+    \begin{enumerate}[a)]
+        \item The Trapezoid method approximates $y(0.1)$ as \[ y(0.1) = y(0) + 0.1\left(\frac{1}{2}(f(0, 1) + f(0.1, y(0.1)))\right) = 
+        1 + 0.1(1 + (0.1+1)y(0.1)). \]
+        Solving for $y(0.1)$, we get that \[ y(0.1) = \frac{1 + 0.1}{1 - 0.1(1.1)} \approx \boxed{1.236} \]
+        \item The Trapezoid method approximates $y(0.01)$ as \[ y(0.01) = y(0) + 0.01\left(\frac{1}{2}(f(0, 1) + f(0.01, y(0.01)))\right) = 
+        1 + 0.01(1 + (0.01+1)y(0.1)). \]
+        Solving for $y(0.01)$, we get that \[ y(0.01) = \frac{1 + 0.01}{1 - 0.01(1.01)} \approx \boxed{1.020305} \]
+        \item Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.236 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.020305 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{3}. \]
+    \end{enumerate}
+
     \item \textbf{Explicit trapezoid method (Heun's Method)}
     
     \begin{enumerate}[a)]
         \item Heun's method approximates $y(0.1)$ as \begin{align*} y(0.1) &= y(0) + 0.1\cdot\frac{1}{2}(f(0, 1) + f(0.1, 1 + 0.1f(0, 1))) \end{align*}
         Plugging in $f(0, 1) = 2(0+1)1 = 2$, we get
-        \begin{align*} y(0.1) &= 1 + 0.05(2 + 2(0.1 + 1)(1 + 0.1(2))) = \boxed{1.232}\end{align*}
+        \begin{align*} y(0.1) &= 1 + 0.05(2 + 2(0.1 + 1)(1 + 0.1(2))) = \boxed{1.236}\end{align*}
         \item Heun's method approximates $y(0.01)$ as \begin{align*} y(0.01) &= y(0) + 0.01\cdot\frac{1}{2}(f(0, 1) + f(0.01, 1 + 0.01f(0, 1))) \end{align*}
         Plugging in $f(0, 1) = 2$ and $f(0.01, 1 + 0.01f(0,1)) = f(0.01,  1.02) = 2.0604$, we get
         \begin{align*} y(0.01) &= 1 + 0.005(2 + 2.0604) = \boxed{1.020302}.  \end{align*}
@@ -134,8 +157,23 @@
          Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.232 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.020302 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{3}. \]
     \end{enumerate}
 
-    \item \textbf{Taylor-2 method}
+    \item \textbf{Taylor-2 method} \\
     
+    Note that $f_t(t, y) = 2y$ and $f_y(t, y) = 2t + 2.$ 
+    \begin{enumerate}[a)]
+        \item The Taylor-2 method approximates $y(0.1)$ as 
+        \begin{align*} y(0.1) &= y(0) + 0.1\left(f(0, 1) + \frac{0.1}{2}\left(f_t(0, 1) + f(0, 1)f_y(0, 1)\right)\right) \end{align*}
+        Plugging in $f(0, 1) = 2(0+1)1 = 2$, $f_t(0, 1) = 2$, and $f_y(0, 1) = 2$, we get
+        \begin{align*} y(0.1) &= 1 + 0.1\left(2 + \frac{0.1}{2}\left(2 + 2 \cdot 2\right)\right) = \boxed{1.23}\end{align*}
+        \item The Taylor-2 method approximates $y(0.01)$ as 
+        \begin{align*} y(0.01) &= y(0) + 0.01\left(f(0, 1) + \frac{0.01}{2}\left(f_t(0, 1) + f(0, 1)f_y(0, 1)\right)\right) \end{align*}
+        Plugging in $f(0, 1) = 2(0+1)1 = 2$, $f_t(0, 1) = 2$, and $f_y(0, 1) = 2$, we get
+        \begin{align*} y(0.01) &= 1 + 0.01\left(2 + \frac{0.01}{2}\left(2 + 2 \cdot 2\right)\right) = \boxed{1.0203}\end{align*}
+
+        \item The local truncation error in each approximation are $\left|1.23 - e^{0.1^2 + 2(0.1)}\right|$ and $\left|1.0203 - e^{0.01^2 + 2(0.01)} \right|.$ 
+         Thus, the order of the method is \[ \log_{10} \left( \frac{\left|1.23 - e^{0.1^2 + 2(0.1)}\right|}{\left|1.0203 - e^{0.01^2 + 2(0.01)} \right|} \right) \approx \boxed{3}. \]
+    \end{enumerate}
+
     \newpage
 
     \item \textbf{Show the local truncation error of the Backward Euler method is $h^2$.}
@@ -198,7 +236,23 @@
     % \end{solution}
     \newpage
 
-    \item \textbf{Show that the 4th order RK method $(\text{Eq } 6.50, \, \text{page } 330)$ has $h^5$ error when applied to the ODE $y'=ay.$}
+    \item \textbf{Show that the 4th order RK method $(\text{Eq } 6.50, \, \text{page } 330)$ has $h^5$ error when applied to the ODE $y'=ay.$} 
+    
+    \begin{solution}
+    The 4th order RK method is of the form
+    \[ w_{i+1} = w_i + \frac{h}{6}(s_1 + 2s_2 + 2s_3 + s_4) \]
+    where \begin{align*}
+    s_1 &= f(t_i, w_i) = aw_i \\
+    s_2 &= f\left(t_i+\frac{h}{2}, w_i + \frac{h}{2}s_1\right) = (aw_i + O(h))O(h)\\
+    s_3 &= f\left(t_i+\frac{h}{2}, w_i + \frac{h}{2}s_2\right) = (aw_i + O(h^2))O(h)\\
+    s_4 &= f\left(t_i+ h, w_i + hs_3\right) = (aw_i + O(h^3))O(h).
+    \end{align*}
+
+    Plugging these back into the 4th order RK form, we find that
+    \[w_{i+1} = w_i + \frac{h}{6}(aw_i + O(h^4)).\]
+
+    Thus, we find that $w_{i+1} - y(i) = O(h^5)$, and so the 4th order RK method has $h^5$ error when applied to $y' = ay$.
+    \end{solution}
 \end{enumerate}
 
 \end{document}
