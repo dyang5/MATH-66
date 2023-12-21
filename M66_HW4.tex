@@ -202,38 +202,6 @@
     and so our local truncation error has order $h^2$.
     \end{solution}
 
-
-    % \begin{solution}
-    % We will follow the procedure in Example 6.7 in \textit{Numerical Analysis (Sauer)}.
-    % Consider the one-step initial value problem
-    % \[\begin{cases}
-    %     y' = f(t, y) \\
-    %     y(t_i)=w_i \\
-    %     t \in [t_i,t_{i+1}]
-    % \end{cases}\]
-
-
-    % Assuming that $y''$ is continuous, the exact solution at $t_{i+1} = t_i + h$, by Taylor's Theorem, is
-    % \[ y(t_{i+1}) = y(t_i + h) = y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(t_i) + O(h^3). \]
-
-    % Equivalently, since $y(t_i) = w_i$ and $y'(t_i) = f(t_i, w_i)$ by definition, we can rewrite this as
-    % \[ y(t_{i+1}) =  w_{i+1} = w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c).\]
-
-    % On the other hand, the Backwards Euler method tells us that \[w_{i+1}= w_i + hf(t_{i+1}, w_{i+1}).\]
-
-    % The local truncation error is the difference between these two expressions:
-    % \begin{align*} e_{i+1} &= |w_{i+1} - y(t_{i+1})|  \\
-    %     &= \left|\left( w_i + hf(t_{i+1}, w_{i+1}) \right) - \left( w_i + hf(t_i, w_i) + \frac{h^2}{2}y''(c)\right) \right| \\
-    %     &= \left| h(f(t_{i+1}, w_{i+1}) - f(t_i, w_i)) + \frac{h^2}{2}y''(c)\right|
-    % \end{align*}
-        
-    % Note that $f(t_{i+1}, w_{i+1}) = f(t_i + h, w_{i+1} )$. Using a multivariable Taylor expansion, we find that
-    % \begin{align*} f(t_{i+1}, w_{i+1}) &= f(t_i + h, w_i) \\
-    % &= f(t_i, w_i) + h(f_t(t_i, w_i)) + (w_{i+1} - w_i)f_y(t_i, w_i) \end{align*}
-
-    % From the Taylor expansion of $w_{i+1} = y(t_{i+1})$, we know that $w_{i+1} - w_i = hf(t_i, w_i) + O(h^2)$. 
-    % $w_{i+1} - w_i = hf(t_{i+1}, w_{i+1})$ and so substituting this 
-    % \end{solution}
     \newpage
 
     \item \textbf{Show that the 4th order RK method $(\text{Eq } 6.50, \, \text{page } 330)$ has $h^5$ error when applied to the ODE $y'=ay.$} 
