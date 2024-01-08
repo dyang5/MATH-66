@@ -1,4 +1,4 @@
-# Swarthmore College, MATH 066: Stochastic and Numerical Methods, Spring 2023.
+# Swarthmore College, MATH 066: Stochastic and Numerical Methods, Fall 2023.
 
 This repo contains a collection of my homework material.
 
